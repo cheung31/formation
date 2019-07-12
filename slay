@@ -67,6 +67,12 @@ chapter 'Checking for SSH key…'
 ssh_key_setup
 
 ###############################################################################
+# PROMPT: dotfiles
+###############################################################################
+chapter 'Cloning dotfiles…'
+setup_dotfiles
+
+###############################################################################
 # INSTALL: Dependencies
 ###############################################################################
 chapter "Installing Dependencies…"
@@ -104,8 +110,12 @@ fi
 # -----------------------------------------------------------------------------
 if [ -x nvm ]; then
 	step "Installing NVM…"
+    mkdir -p $HOME/.nvm
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-	print_success "NVM installed!"
+    print_success "NVM installed!"
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 	step "Installing latest Node…"
 	nvm install node
 	nvm use node

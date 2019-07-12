@@ -23,7 +23,15 @@ indent="   "
 # Get full directory name of this script
 cwd="$(cd "$(dirname "$0")" && pwd)"
 
-DOTFILES_ROOT=$HOME/.dotfiles
+DOTFILES_ROOT=$HOME/dev/dotfiles
+DOTFILES=(
+    .bashrc
+    .bash_profile
+    .git-completion.bash
+    .gitconfig
+    .profile
+    .vimrc
+)
 
 ###############################################################################
 # Utility Functions
@@ -583,6 +591,25 @@ install_npm_packages() {
 	else
 		print_success_muted "$1 already installed. Skipped."
 	fi
+}
+
+setup_dotfiles() {
+    mkdir -p ~/.bash
+    cd ~/.bash
+    rm -rf git-aware-prompt
+    git clone git://github.com/jimeh/git-aware-prompt.git &> /dev/null
+
+    mkdir -p ~/dev
+    cd ~/dev
+    if [ ! -d ./dotfiles ]; then
+        git clone git@github.com:cheung31/dotfiles.git
+    fi
+
+    cd ~/
+    for dotfile in ${DOTFILES[@]}; do
+        ln -sf ~/dev/dotfiles/$dotfile $dotfile
+        print_muted "${indent}✓ $dotfile setup."
+    done
 }
 
 # The releases are returned in the format
