@@ -553,6 +553,13 @@ gem_install_or_update() {
     fi
 }
 
+accept_xcode_license() {
+    if test ! -z $(which xcodebuild); then
+        sudo xcodebuild -license accept
+    fi
+
+}
+
 install_brews() {
     if test ! $(brew list | grep $brew); then
         echo_install "Installing $brew"
@@ -581,6 +588,10 @@ install_application_via_app_store() {
 	else
 		print_success_muted "$2 already installed. Skipped."
 	fi
+
+    if [[ $2 == "Xcode" ]]; then
+        accept_xcode_license
+    fi
 }
 
 install_npm_packages() {

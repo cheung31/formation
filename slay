@@ -89,6 +89,8 @@ else
 	print_success "Xcode installed!"
 fi
 
+accept_xcode_license
+
 if [ ! -d "$HOME/.bin/" ]; then
 	mkdir "$HOME/.bin"
 fi

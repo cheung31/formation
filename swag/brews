@@ -1,9 +1,11 @@
 asciinema
-git
-tig
 mas
+git
+htop
 wget
-hub
-hugo
 yarn
 rbenv
+packer
+terraform
+python
+python3
