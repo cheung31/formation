@@ -6,6 +6,5 @@ wget
 yarn
 rbenv
 packer
-terraform
 python
 python3
